@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "type": "module",
-  "description": "[![Actions Status](https://github.com/nidges/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/nidges/backend-project-lvl2/actions)",
+  "description": "generates diff between two files (like gitHub, baby :) )",
   "main": "index.js",
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/nidges/backend-project-lvl2#readme",
   "dependencies": {
-    "commander": "^8.2.0"
+    "commander": "^8.2.0",
+    "lodash": "^4.17.21",
+    "process": "^0.11.10"
   }
 }
