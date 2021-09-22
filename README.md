@@ -6,6 +6,6 @@
 
 ### CodeClimate 
 Maintainability:
-[![Maintainability](https://api.codeclimate.com/v1/badges/70f28cf06c690228a521/maintainability)](https://codeclimate.com/github/nidges/backend-project-lvl2/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/dd3647cd07c204c32ab5/maintainability)](https://codeclimate.com/github/nidges/backend-project-lvl2/maintainability)
 Test Coverage:
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/nidges/backend-project-lvl2/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/dd3647cd07c204c32ab5/test_coverage)](https://codeclimate.com/github/nidges/backend-project-lvl2/test_coverage)
