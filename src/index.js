@@ -1,6 +1,6 @@
-import { readFileSync } from 'fs';
-import { extname, resolve } from 'path';
-import { cwd } from 'process';
+import fs from 'fs';
+import path from 'path';
+import process from 'process';
 import _ from 'lodash';
 
 // const path1 =
@@ -9,11 +9,11 @@ import _ from 'lodash';
 // const path2 =
 // '/Users/mariastepanova/WebstormProjects/backend-project-lvl2/__fixtures__/file2.json';
 
-export const getObjFromPath = (path) => {
-  const pathResolved = path.startsWith('/') ? path : resolve(cwd(), path);
-  const json = readFileSync(pathResolved, 'utf8');
+export const getObjFromPath = (givenPath) => {
+  const pathResolved = givenPath.startsWith('/') ? givenPath : path.resolve(process.cwd(), givenPath);
+  const json = fs.readFileSync(pathResolved, 'utf8');
   return JSON.parse(json);
-}
+};
 
 export const genDiff = (path1, path2) => {
   // const ext1 = extname(path1);
@@ -57,4 +57,3 @@ export const genDiff = (path1, path2) => {
 };
 
 // genDiff(path1, path2);
-

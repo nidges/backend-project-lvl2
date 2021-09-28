@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1632814030022" clover="3.2.0">
+  <project timestamp="1632814030022" name="All files">
+    <metrics statements="20" coveredstatements="20" conditionals="8" coveredconditionals="7" methods="3" coveredmethods="3" elements="31" coveredelements="30" complexity="0" loc="20" ncloc="20" packages="1" files="1" classes="1"/>
+    <file name="index.js" path="/Users/mariastepanova/WebstormProjects/backend-project-lvl2/src/index.js">
+      <metrics statements="20" coveredstatements="20" conditionals="8" coveredconditionals="7" methods="3" coveredmethods="3"/>
+      <line num="12" count="1" type="stmt"/>
+      <line num="13" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="14" count="3" type="stmt"/>
+      <line num="15" count="3" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="22" count="1" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="26" count="1" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="32" count="1" type="stmt"/>
+      <line num="33" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="36" count="1" type="stmt"/>
+      <line num="39" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="42" count="2" type="stmt"/>
+      <line num="45" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="48" count="1" type="stmt"/>
+      <line num="53" count="1" type="stmt"/>
+      <line num="56" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
