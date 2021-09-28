@@ -1,23 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import process from 'process';
 import _ from 'lodash';
+import getObjFromPath from './parsers.js';
 
-// const path1 =
-// '/Users/mariastepanova/WebstormProjects/backend-project-lvl2/__fixtures__/file1.json';
-// const path2 = '../__fixtures__/file2.json';
-// const path2 =
-// '/Users/mariastepanova/WebstormProjects/backend-project-lvl2/__fixtures__/file2.json';
-
-export const getObjFromPath = (givenPath) => {
-  const pathResolved = givenPath.startsWith('/') ? givenPath : path.resolve(process.cwd(), givenPath);
-  const json = fs.readFileSync(pathResolved, 'utf8');
-  return JSON.parse(json);
-};
-
-export const genDiff = (path1, path2) => {
-  // const ext1 = extname(path1);
-  // const ext2 = extname(path2);
+export default (path1, path2) => {
 
   const obj1 = getObjFromPath(path1);
   const obj2 = getObjFromPath(path2);
@@ -32,28 +16,22 @@ export const genDiff = (path1, path2) => {
   const string = allKeysSorted.reduce((acc, key) => {
     if (!_.has(obj1, key)) {
       // console.log('----> if key is only in second',
-      // `${acc}\n  + ${key} : ${obj2[key]}`)
       return `${acc} + ${key} : ${obj2[key]}\n`;
     }
 
     if (!_.has(obj2, key)) {
       // console.log('----> if key is only in first',
-      // `${acc}\n  - ${key} : ${obj1[key]}`)
       return `${acc} - ${key} : ${obj1[key]}\n`;
     }
 
     if (obj1[key] !== obj2[key]) {
       // console.log('----> if keys are not equal',
-      // `${acc}\n  - ${key} : ${obj1[key]} \n  + ${key} : ${obj2[key]}`)
       return `${acc} - ${key} : ${obj1[key]}\n + ${key} : ${obj2[key]}\n`;
     }
 
     // console.log('----> if keys are equal',
-    // `${acc}\n    ${key} : ${obj1[key]}`)
     return `${acc}   ${key} : ${obj1[key]}\n`;
-  }, '{\n');
+  }, '');
 
-  return `${string}}`;
+  return `{\n${string}}`;
 };
-
-// genDiff(path1, path2);
