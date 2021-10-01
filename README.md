@@ -5,6 +5,8 @@
 [![asciicast](https://asciinema.org/a/NNS08MaudOYBwbw0YsXet4v0M.svg)](https://asciinema.org/a/NNS08MaudOYBwbw0YsXet4v0M)
 ### genDiff - two json/yaml files, pretty view
 [![asciicast](https://asciinema.org/a/4NBqpdIr5SWBXfDbHpHEP9hqm.svg)](https://asciinema.org/a/4NBqpdIr5SWBXfDbHpHEP9hqm)
+### genDiff - nested files, pretty view
+[![asciicast](https://asciinema.org/a/Ox3ZAahytTrwEGGh3NqRpYJO9.svg)](https://asciinema.org/a/Ox3ZAahytTrwEGGh3NqRpYJO9)
 
 ### CodeClimate
 [![Maintainability](https://api.codeclimate.com/v1/badges/dd3647cd07c204c32ab5/maintainability)](https://codeclimate.com/github/nidges/backend-project-lvl2/maintainability)

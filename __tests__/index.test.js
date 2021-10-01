@@ -1,8 +1,8 @@
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 import genDiff from '../src/index.js';
-import getObjFromPath from '../src/parsers.js'
-import fs from "fs";
+import getObjFromPath from '../src/parsers.js';
 
 // console.log(process.env);
 
@@ -19,51 +19,51 @@ let pathToJson1;
 let pathToJson2;
 let pathToYml1;
 let pathToYml2;
+let pathToShortJson;
+let pathToShortYml;
+let pathToTxtStylish;
 
 beforeAll(() => {
   pathToJson1 = getFixturePath('file1.json');
   pathToJson2 = getFixturePath('file2.json');
   pathToYml1 = getFixturePath('file1.yml');
   pathToYml2 = getFixturePath('file2.yaml');
+  pathToShortJson = getFixturePath('json-short.json');
+  pathToShortYml = getFixturePath('yaml-short.yml');
+  pathToTxtStylish = getFixturePath('diff-stylish.txt');
 });
-
-// const pathToJson1 = `${__dirname}/../__fixtures__/file1.json`;
-// const pathToJson2 = `${__dirname}/../__fixtures__/file2.json`;
-
-// test('two json files diff', () => {
-//   expect(genDiff(pathToJson1, pathToJson2)).toEqual('{\n'
-//       + ' - follow : false\n'
-//       + '   host : hexlet.io\n'
-//       + ' - proxy : 123.234.53.22\n'
-//       + ' - timeout : 50\n'
-//       + ' + timeout : 20\n'
-//       + ' + verbose : true\n'
-//       + '}');
-// });
 
 test('two files diff, string', () => {
   expect(genDiff(pathToJson1, pathToJson2)).toEqual(
-      fs.readFileSync(getFixturePath('diff-string.txt'), 'utf8')
+    fs.readFileSync(pathToTxtStylish, 'utf8'),
   );
   expect(genDiff(pathToYml1, pathToYml2)).toEqual(
-      fs.readFileSync(getFixturePath('diff-string.txt'), 'utf8')
+    fs.readFileSync(pathToTxtStylish, 'utf8'),
   );
   expect(genDiff(pathToYml1, pathToJson2)).toEqual(
-      fs.readFileSync(getFixturePath('diff-string.txt'), 'utf8')
+    fs.readFileSync(pathToTxtStylish, 'utf8'),
   );
 });
 
 test('parsers', () => {
-  expect(getObjFromPath(pathToJson1)).toEqual({
-    host: 'hexlet.io',
-    timeout: 50,
-    proxy: '123.234.53.22',
-    follow: false,
+  expect(getObjFromPath(pathToShortJson)).toEqual({
+    group1: {
+      baz: 'bas',
+      foo: 'bar',
+      nest: {
+        key: 'value',
+      },
+    },
   });
-  expect(getObjFromPath(pathToYml1)).toEqual({
-    host: 'hexlet.io',
-    timeout: 50,
-    proxy: '123.234.53.22',
-    follow: false,
+
+  expect(getObjFromPath(pathToShortYml)).toEqual({
+    group2: {
+      abc: 12345,
+      deep: {
+        id: 45,
+      },
+    },
   });
+
+  expect(getObjFromPath(pathToTxtStylish)).toThrowError(new Error('wrong file format!'));
 });
