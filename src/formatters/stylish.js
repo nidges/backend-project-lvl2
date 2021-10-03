@@ -40,7 +40,7 @@ export default (collection) => {
           result = `${currentCommonIndent}${replacerRemoved}${key}: ${stringify(value, depth + 1)}`;
           break;
         case 'changed':
-          result = `${`${currentCommonIndent}${replacerRemoved}${key}: ${stringify(valueBefore, depth + 1)}`.trimEnd()}\n${currentCommonIndent}${replacerAdded}${key}: ${stringify(valueAfter, depth + 1)}`;
+          result = `${currentCommonIndent}${replacerRemoved}${key}: ${stringify(valueBefore, depth + 1)}\n${currentCommonIndent}${replacerAdded}${key}: ${stringify(valueAfter, depth + 1)}`;
           break;
         case 'nested':
           result = `${currentCommonIndent}${replacerCommon}${key}: ${iter(value, depth + 1)}`;
@@ -49,7 +49,7 @@ export default (collection) => {
           result = `${currentCommonIndent}${replacerCommon}${key}: ${stringify(value, depth + 1)}`;
           break;
       }
-      return result.trimEnd();
+      return result;
     });
 
     return [
