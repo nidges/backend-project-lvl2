@@ -4,70 +4,38 @@ import fs from 'fs';
 import genDiff from '../src/index.js';
 import getObjFromPath from '../src/parsers.js';
 
-// console.log(process.env);
-
-// path.resolve('.') дает точку входа для npx - корень проекта (птмч тесты запускаются через npx)
-// - не работает если сменить директорию и запустить тесты, работает только из корня проекта
-// const getFixturePath = (filename) => path.join(path.resolve('.'), '__fixtures__', filename);
-// const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-let pathToJson1;
-let pathToJson2;
-let pathToYml1;
-let pathToYml2;
-let pathToShortJson;
-let pathToShortYml;
-let pathToTxDiffStylish;
-let pathToTxDiffPlain;
-let pathToTxDiffJson;
-
-beforeAll(() => {
-  pathToJson1 = getFixturePath('file1.json');
-  pathToJson2 = getFixturePath('file2.json');
-  pathToYml1 = getFixturePath('file1.yml');
-  pathToYml2 = getFixturePath('file2.yaml');
-  pathToShortJson = getFixturePath('json-short.json');
-  pathToShortYml = getFixturePath('yaml-short.yml');
-  pathToTxDiffStylish = getFixturePath('diff-stylish.txt');
-  pathToTxDiffPlain = getFixturePath('diff-plain.txt');
-  pathToTxDiffJson = getFixturePath('diff-json.txt');
-});
-
-test('two files diff, string', () => {
-  expect(genDiff(pathToJson1, pathToJson2)).toEqual(
-    fs.readFileSync(pathToTxDiffStylish, 'utf8'),
-  );
-  expect(genDiff(pathToYml1, pathToYml2)).toEqual(
-    fs.readFileSync(pathToTxDiffStylish, 'utf8'),
-  );
-  expect(genDiff(pathToYml1, pathToJson2)).toEqual(
-    fs.readFileSync(pathToTxDiffStylish, 'utf8'),
-  );
-  expect(genDiff(pathToJson1, pathToJson2, 'plain')).toEqual(
-    fs.readFileSync(pathToTxDiffPlain, 'utf8'),
-  );
-  expect(genDiff(pathToYml1, pathToYml2, 'plain')).toEqual(
-    fs.readFileSync(pathToTxDiffPlain, 'utf8'),
-  );
-  expect(genDiff(pathToYml1, pathToJson2, 'plain')).toEqual(
-    fs.readFileSync(pathToTxDiffPlain, 'utf8'),
-  );
-  expect(genDiff(pathToJson1, pathToJson2, 'json')).toEqual(
-    fs.readFileSync(pathToTxDiffJson, 'utf8'),
-  );
-  expect(genDiff(pathToYml1, pathToYml2, 'json')).toEqual(
-    fs.readFileSync(pathToTxDiffJson, 'utf8'),
-  );
-  expect(genDiff(pathToYml1, pathToJson2, 'json')).toEqual(
-    fs.readFileSync(pathToTxDiffJson, 'utf8'),
-  );
-});
+describe('testing different diff formats', () => {
+  const pathToJson1 = getFixturePath('file1.json');
+  const pathToJson2 = getFixturePath('file2.json');
+  const pathToYml1 = getFixturePath('file1.yml');
+  const pathToYml2 = getFixturePath('file2.yaml');
+  const correctDiffStylish = fs.readFileSync(getFixturePath('diff-stylish.txt'), 'utf8');
+  const correctDiffPlain = fs.readFileSync(getFixturePath('diff-plain.txt'), 'utf8');
+  const correctDiffJson = fs.readFileSync(getFixturePath('diff-json.txt'), 'utf8');
+  
+  test.each([
+    { path1: pathToJson1, path2: pathToJson2, format: 'stylish', expected: correctDiffStylish },
+    { path1: pathToJson1, path2: pathToJson2, format: 'plain', expected: correctDiffPlain },
+    { path1: pathToJson1, path2: pathToJson2, format: 'json', expected: correctDiffJson },
+    { path1: pathToYml1, path2: pathToYml2, format: 'stylish', expected: correctDiffStylish },
+    { path1: pathToYml1, path2: pathToYml2, format: 'plain', expected: correctDiffPlain },
+    { path1: pathToYml1, path2: pathToYml2, format: 'json', expected: correctDiffJson },
+    { path1: pathToYml1, path2: pathToJson2, format: 'stylish', expected: correctDiffStylish },
+    { path1: pathToYml1, path2: pathToJson2, format: 'plain', expected: correctDiffPlain },
+    { path1: pathToYml1, path2: pathToJson2, format: 'json', expected: correctDiffJson }
+  ])('two files diff', ({ path1, path2, format, expected }) => {
+    expect(genDiff(path1, path2, format)).toEqual(expected);
+  })
+})
 
 test('parsers', () => {
+  const pathToShortJson = getFixturePath('json-short.json');
+  const pathToShortYml = getFixturePath('yaml-short.yml');
+  
   expect(getObjFromPath(pathToShortJson)).toEqual({
     group1: {
       baz: 'bas',
@@ -86,6 +54,4 @@ test('parsers', () => {
       },
     },
   });
-
-  // expect(getObjFromPath(pathToTxDiffStylish)).toThrowError(new Error('wrong file format!'));
 });

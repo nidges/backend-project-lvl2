@@ -8,17 +8,11 @@ export default (path) => {
   const content = fs.readFileSync(pathResolved, 'utf8');
   const format = extname(path);
 
-  let result;
-
   if (format === '.json') {
-    result = JSON.parse(content);
+    return JSON.parse(content);
   } else if (format === '.yml' || format === '.yaml') {
-    result = YAML.parse(content);
+    return YAML.parse(content);
+  } else {
+    throw new Error('wrong file format!');
   }
-  // } else {
-  //   throw new Error('wrong file format!');
-  // }
-
-  return result;
 };
-// s('__fixtures__/file1.json');
