@@ -1,4 +1,7 @@
 .idea/
 node_modules/
-coverage/
 __fixtures__/collection.txt
+
+# Ignore test-related files
+/coverage.data
+/coverage/
