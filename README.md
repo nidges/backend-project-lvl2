@@ -1,4 +1,4 @@
-This package provides a Generator of Difference between two .yaml/.json files.
+This package provides a Generator of Difference between two .yaml or .json files.
 
 Installation:
 1. Check if you have node.js installed (node --version). If not - install it with available package manager
@@ -21,6 +21,13 @@ There are three output format types (-f, --format):
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/nidges/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/nidges/backend-project-lvl2/actions)
 
+### CodeClimate
+[![Maintainability](https://api.codeclimate.com/v1/badges/dd3647cd07c204c32ab5/maintainability)](https://codeclimate.com/github/nidges/backend-project-lvl2/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/dd3647cd07c204c32ab5/test_coverage)](https://codeclimate.com/github/nidges/backend-project-lvl2/test_coverage)
+
+### GitHub Actions
+[![my workflow](https://github.com/nidges/backend-project-lvl2/actions/workflows/my-workflow.yml/badge.svg?event=push)](https://github.com/nidges/backend-project-lvl2/actions/workflows/my-workflow.yml)
+  
 ### genDiff - two json files, pretty view
 [![asciicast](https://asciinema.org/a/NNS08MaudOYBwbw0YsXet4v0M.svg)](https://asciinema.org/a/NNS08MaudOYBwbw0YsXet4v0M)
 ### genDiff - two json/yaml files, pretty view
@@ -29,10 +36,3 @@ There are three output format types (-f, --format):
 [![asciicast](https://asciinema.org/a/Ox3ZAahytTrwEGGh3NqRpYJO9.svg)](https://asciinema.org/a/Ox3ZAahytTrwEGGh3NqRpYJO9)
 ### genDiff - nested files, plain view
 [![asciicast](https://asciinema.org/a/fcDIWYE988JQLwG9thT6ldqys.svg)](https://asciinema.org/a/fcDIWYE988JQLwG9thT6ldqys)
-
-### CodeClimate
-[![Maintainability](https://api.codeclimate.com/v1/badges/dd3647cd07c204c32ab5/maintainability)](https://codeclimate.com/github/nidges/backend-project-lvl2/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/dd3647cd07c204c32ab5/test_coverage)](https://codeclimate.com/github/nidges/backend-project-lvl2/test_coverage)
-
-### GitHub Actions
-[![my workflow](https://github.com/nidges/backend-project-lvl2/actions/workflows/my-workflow.yml/badge.svg?event=push)](https://github.com/nidges/backend-project-lvl2/actions/workflows/my-workflow.yml)
