@@ -8,7 +8,7 @@ Installation:
 
 Usage: gendiff [options] <filepath1> <filepath2>
 Options:
-  -V, --version        output the version number
+  -V, --version        output the version number \n
   -f, --format [type]  output format (default: "stylish")
   -h, --help           output usage information
 
