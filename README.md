@@ -7,6 +7,8 @@
 [![asciicast](https://asciinema.org/a/4NBqpdIr5SWBXfDbHpHEP9hqm.svg)](https://asciinema.org/a/4NBqpdIr5SWBXfDbHpHEP9hqm)
 ### genDiff - nested files, pretty view
 [![asciicast](https://asciinema.org/a/Ox3ZAahytTrwEGGh3NqRpYJO9.svg)](https://asciinema.org/a/Ox3ZAahytTrwEGGh3NqRpYJO9)
+### genDiff - nested files, plain view
+[![asciicast](https://asciinema.org/a/fcDIWYE988JQLwG9thT6ldqys.svg)](https://asciinema.org/a/fcDIWYE988JQLwG9thT6ldqys)
 
 ### CodeClimate
 [![Maintainability](https://api.codeclimate.com/v1/badges/dd3647cd07c204c32ab5/maintainability)](https://codeclimate.com/github/nidges/backend-project-lvl2/maintainability)

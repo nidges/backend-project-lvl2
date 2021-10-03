@@ -21,7 +21,8 @@ let pathToYml1;
 let pathToYml2;
 let pathToShortJson;
 let pathToShortYml;
-let pathToTxtStylish;
+let pathToTxDiffStylish;
+let pathToTxDiffPlain;
 
 beforeAll(() => {
   pathToJson1 = getFixturePath('file1.json');
@@ -30,18 +31,28 @@ beforeAll(() => {
   pathToYml2 = getFixturePath('file2.yaml');
   pathToShortJson = getFixturePath('json-short.json');
   pathToShortYml = getFixturePath('yaml-short.yml');
-  pathToTxtStylish = getFixturePath('diff-stylish.txt');
+  pathToTxDiffStylish = getFixturePath('diff-stylish.txt');
+  pathToTxDiffPlain = getFixturePath('diff-plain.txt');
 });
 
 test('two files diff, string', () => {
   expect(genDiff(pathToJson1, pathToJson2)).toEqual(
-    fs.readFileSync(pathToTxtStylish, 'utf8'),
+    fs.readFileSync(pathToTxDiffStylish, 'utf8'),
   );
   expect(genDiff(pathToYml1, pathToYml2)).toEqual(
-    fs.readFileSync(pathToTxtStylish, 'utf8'),
+    fs.readFileSync(pathToTxDiffStylish, 'utf8'),
   );
   expect(genDiff(pathToYml1, pathToJson2)).toEqual(
-    fs.readFileSync(pathToTxtStylish, 'utf8'),
+    fs.readFileSync(pathToTxDiffStylish, 'utf8'),
+  );
+  expect(genDiff(pathToJson1, pathToJson2, 'plain')).toEqual(
+    fs.readFileSync(pathToTxDiffPlain, 'utf8'),
+  );
+  expect(genDiff(pathToYml1, pathToYml2, 'plain')).toEqual(
+    fs.readFileSync(pathToTxDiffPlain, 'utf8'),
+  );
+  expect(genDiff(pathToYml1, pathToJson2, 'plain')).toEqual(
+    fs.readFileSync(pathToTxDiffPlain, 'utf8'),
   );
 });
 
@@ -65,5 +76,5 @@ test('parsers', () => {
     },
   });
 
-  expect(getObjFromPath(pathToTxtStylish)).toThrowError(new Error('wrong file format!'));
+  // expect(getObjFromPath(pathToTxDiffStylish)).toThrowError(new Error('wrong file format!'));
 });
