@@ -23,6 +23,7 @@ let pathToShortJson;
 let pathToShortYml;
 let pathToTxDiffStylish;
 let pathToTxDiffPlain;
+let pathToTxDiffJson;
 
 beforeAll(() => {
   pathToJson1 = getFixturePath('file1.json');
@@ -33,6 +34,7 @@ beforeAll(() => {
   pathToShortYml = getFixturePath('yaml-short.yml');
   pathToTxDiffStylish = getFixturePath('diff-stylish.txt');
   pathToTxDiffPlain = getFixturePath('diff-plain.txt');
+  pathToTxDiffJson = getFixturePath('diff-json.txt');
 });
 
 test('two files diff, string', () => {
@@ -53,6 +55,15 @@ test('two files diff, string', () => {
   );
   expect(genDiff(pathToYml1, pathToJson2, 'plain')).toEqual(
     fs.readFileSync(pathToTxDiffPlain, 'utf8'),
+  );
+  expect(genDiff(pathToJson1, pathToJson2, 'json')).toEqual(
+    fs.readFileSync(pathToTxDiffJson, 'utf8'),
+  );
+  expect(genDiff(pathToYml1, pathToYml2, 'json')).toEqual(
+    fs.readFileSync(pathToTxDiffJson, 'utf8'),
+  );
+  expect(genDiff(pathToYml1, pathToJson2, 'json')).toEqual(
+    fs.readFileSync(pathToTxDiffJson, 'utf8'),
   );
 });
 

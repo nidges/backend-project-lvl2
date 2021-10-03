@@ -21,3 +21,4 @@ export default (path) => {
 
   return result;
 };
+// s('__fixtures__/file1.json');

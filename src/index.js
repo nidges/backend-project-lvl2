@@ -2,8 +2,8 @@ import _ from 'lodash';
 import getObjFromPath from './parsers.js';
 import getFormatter from './formatters/index.js';
 
-// const path1 = '../__fixtures__/file1.json';
-// const path2 = '../__fixtures__/file2.json';
+// const path1 = '../__fixtures__/file1.json.js';
+// const path2 = '../__fixtures__/file2.json.js';
 
 const isObject = (entity) => (typeof entity === 'object' && entity !== null);
 
