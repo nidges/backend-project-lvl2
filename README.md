@@ -7,10 +7,10 @@ Installation:
 4. Use gendiff -h for help with options
 
 Usage: gendiff [options] <filepath1> <filepath2>
-Options:
-  -V, --version        output the version number\
-  -f, --format [type]  output format (default: "stylish")\
-  -h, --help           output usage information\
+Options:\
+  -V, --version           output the version number\
+  -f, --format [type]  output format (default: "stylish")\
+  -h, --help                output usage information\
 
 Program uses two required arguments - paths to files. Either relative or absolute.
 There are three output format types (-f, --format):
