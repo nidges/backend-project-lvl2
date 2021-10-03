@@ -12,7 +12,7 @@ Options:
   -f, --format [type]  output format (default: "stylish")
   -h, --help           output usage information
 
-Programm uses two required arguments - paths to files. Either relative or absolute.
+Program uses two required arguments - paths to files. Either relative or absolute.
 There are three output format types (-f, --format):
   1. stylish - default
   2. plain
