@@ -10,9 +10,8 @@ export default (path) => {
 
   if (format === '.json') {
     return JSON.parse(content);
-  } else if (format === '.yml' || format === '.yaml') {
+  } if (format === '.yml' || format === '.yaml') {
     return YAML.parse(content);
-  } else {
-    throw new Error('wrong file format!');
   }
+  throw new Error('wrong file format!');
 };

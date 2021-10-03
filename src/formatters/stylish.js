@@ -33,19 +33,19 @@ export default (collection) => {
       if (state === 'added') {
         return `${currentCommonIndent}${replacerAdded}${key}: ${stringify(value, depth + 1)}`;
       }
-      
+
       if (state === 'removed') {
         return `${currentCommonIndent}${replacerRemoved}${key}: ${stringify(value, depth + 1)}`;
       }
-      
+
       if (state === 'changed') {
         return `${currentCommonIndent}${replacerRemoved}${key}: ${stringify(valueBefore, depth + 1)}\n${currentCommonIndent}${replacerAdded}${key}: ${stringify(valueAfter, depth + 1)}`;
       }
-      
+
       if (state === 'nested') {
         return `${currentCommonIndent}${replacerCommon}${key}: ${iter(value, depth + 1)}`;
       }
-      
+
       return `${currentCommonIndent}${replacerCommon}${key}: ${stringify(value, depth + 1)}`;
     });
 
