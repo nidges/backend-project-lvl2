@@ -36,3 +36,5 @@ There are three output format types (-f, --format):
 [![asciicast](https://asciinema.org/a/Ox3ZAahytTrwEGGh3NqRpYJO9.svg)](https://asciinema.org/a/Ox3ZAahytTrwEGGh3NqRpYJO9)
 ### genDiff - nested files, plain view
 [![asciicast](https://asciinema.org/a/fcDIWYE988JQLwG9thT6ldqys.svg)](https://asciinema.org/a/fcDIWYE988JQLwG9thT6ldqys)
+### genDiff - nested files, stylish, plain or json view
+[![asciicast](https://asciinema.org/a/JMoLawvXXZOHxB7OZ9DoCnDBZ.svg)](https://asciinema.org/a/JMoLawvXXZOHxB7OZ9DoCnDBZ)
