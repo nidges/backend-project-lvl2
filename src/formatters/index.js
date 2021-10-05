@@ -2,14 +2,18 @@ import formatStylish from './stylish.js';
 import formatPlain from './plain.js';
 import formatJson from './json.js';
 
-export default (format) => {
+export default (format, collection) => {
   if (format === 'plain') {
-    return formatPlain;
+    return formatPlain(collection);
   }
 
   if (format === 'json') {
-    return formatJson;
+    return formatJson(collection);
   }
 
-  return formatStylish;
+  if (format === 'stylish') {
+    return formatStylish(collection);
+  }
+
+  throw new Error('wrong output format!');
 };

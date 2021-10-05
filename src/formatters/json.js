@@ -1,1 +1,1 @@
-export default (collection) => JSON.stringify(collection);
+export default (collection) => JSON.stringify(collection, null, ' ');

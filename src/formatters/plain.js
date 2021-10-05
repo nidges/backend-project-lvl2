@@ -1,5 +1,7 @@
+import _ from 'lodash';
+
 const getCorrectValue = (value) => {
-  if (typeof value === 'object' && value !== null) {
+  if (_.isPlainObject(value)) {
     return '[complex value]';
   }
 
@@ -14,22 +16,19 @@ export default (collection) => {
   const iter = (node, path) => {
     const lines = node
       .filter(({ state }) => state !== 'same')
-      .map(({
-        state, key, value, valueBefore, valueAfter,
-      }) => {
-        if (state === 'nested') {
-          return iter(value, `${path}${key}.`);
+      .map((nodeObj) => {
+        switch (nodeObj.state) {
+          case 'added':
+            return `Property '${path}${nodeObj.key}' was added with value: ${getCorrectValue(nodeObj.value)}`;
+          case 'removed':
+            return `Property '${path}${nodeObj.key}' was removed`;
+          case 'changed':
+            return `Property '${path}${nodeObj.key}' was updated. From ${getCorrectValue(nodeObj.valueBefore)} to ${getCorrectValue(nodeObj.valueAfter)}`;
+          case 'nested':
+            return iter(nodeObj.children, `${path}${nodeObj.key}.`);
+          default:
+            throw new Error('there is no such state in our collection');
         }
-
-        if (state === 'added') {
-          return `Property '${path}${key}' was added with value: ${getCorrectValue(value)}`;
-        }
-
-        if (state === 'removed') {
-          return `Property '${path}${key}' was removed`;
-        }
-
-        return `Property '${path}${key}' was updated. From ${getCorrectValue(valueBefore)} to ${getCorrectValue(valueAfter)}`;
       });
 
     return [...lines].join('\n');
