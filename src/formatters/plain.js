@@ -27,7 +27,7 @@ export default (collection) => {
           case 'nested':
             return iter(nodeObj.children, `${path}${nodeObj.key}.`);
           default:
-            throw new Error('there is no such state in our collection');
+            throw new Error(`The node '${path}${nodeObj.key}' is in '${nodeObj.state}' state`);
         }
       });
 

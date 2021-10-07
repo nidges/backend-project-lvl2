@@ -3,17 +3,14 @@ import formatPlain from './plain.js';
 import formatJson from './json.js';
 
 export default (format, collection) => {
-  if (format === 'plain') {
-    return formatPlain(collection);
+  switch (format) {
+    case 'plain':
+      return formatPlain(collection);
+    case 'json':
+      return formatJson(collection);
+    case 'stylish':
+      return formatStylish(collection);
+    default:
+      throw new Error('wrong output format!');
   }
-
-  if (format === 'json') {
-    return formatJson(collection);
-  }
-
-  if (format === 'stylish') {
-    return formatStylish(collection);
-  }
-
-  throw new Error('wrong output format!');
 };

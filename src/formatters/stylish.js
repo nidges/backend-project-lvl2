@@ -1,19 +1,7 @@
 import _ from 'lodash';
 
-const getReplacer = (depth, state = 'same') => {
-  const replacer = { added: '+ ', removed: '- ', empty: '  ' };
-  const replacerCount = 2;
-  const indentSize = depth * replacerCount;
-
-  switch (state) {
-    case 'added':
-      return `${replacer.empty.repeat(indentSize - 1)}${replacer.added}`;
-    case 'removed':
-      return `${replacer.empty.repeat(indentSize - 1)}${replacer.removed}`;
-    default:
-      return replacer.empty.repeat(indentSize);
-  }
-};
+const replacer = { added: '+ ', removed: '- ', empty: '  ' };
+const replacerCount = 2;
 
 const stringify = (entity, depth) => {
   if (!_.isPlainObject(entity)) {
@@ -22,57 +10,51 @@ const stringify = (entity, depth) => {
   const keys = Object.keys(entity);
   const newKeys = keys.map((key) => {
     if (_.isPlainObject(entity[key])) {
-      return `${getReplacer(depth)}${key}: ${stringify(entity[key], depth + 1)}`;
+      return `${replacer.empty.repeat(replacerCount * depth)}${key}: ${stringify(entity[key], depth + 1)}`;
     }
-    return `${getReplacer(depth)}${key}: ${entity[key]}`;
+    return `${replacer.empty.repeat(replacerCount * depth)}${key}: ${entity[key]}`;
   });
   return [
     '{',
     ...newKeys,
-    `${getReplacer(depth - 1)}}`,
+    `${replacer.empty.repeat(depth * replacerCount - replacerCount)}}`,
   ].join('\n');
 };
 
 export default (collection) => {
   const iter = (node, depth) => {
-    const genLine = (object, state, value) => `${getReplacer(depth, state)}${object.key}: ${stringify(value, depth + 1)}`;
+    const indentSize = depth * replacerCount;
+    const currentCommonIndent = replacer.empty.repeat(indentSize - 1);
+    const bracketIndent = replacer.empty.repeat(indentSize - replacerCount);
+
+    const genLine = (currentReplacer, key, value) => `${currentCommonIndent}${currentReplacer}${key}: ${stringify(value, depth + 1)}`;
 
     const lines = node.map((nodeObj) => {
       switch (nodeObj.state) {
         case 'added':
-          return genLine(nodeObj, 'added', nodeObj.value);
-          // return `${getReplacer(depth, 'added')}${nodeObj.key}:
-          // ${stringify(nodeObj.value, depth + 1)}`;
+          return genLine(replacer.added, nodeObj.key, nodeObj.value);
 
         case 'removed':
-          return genLine(nodeObj, 'removed', nodeObj.value);
-          // return `${getReplacer(depth, 'removed')}${nodeObj.key}:
-          // ${stringify(nodeObj.value, depth + 1)}`;
+          return genLine(replacer.removed, nodeObj.key, nodeObj.value);
 
         case 'changed':
-          return `${genLine(nodeObj, 'removed', nodeObj.valueBefore)}\n${genLine(nodeObj, 'added', nodeObj.valueAfter)}`;
-          // const lineBefore = `${getReplacer(depth, 'removed')}${nodeObj.key}:
-          // ${stringify(nodeObj.valueBefore, depth + 1)}`;
-          // const lineAfter = `${getReplacer(depth, 'added')}${nodeObj.key}:
-          // ${stringify(nodeObj.valueAfter, depth + 1)}`;
-          // return `${lineBefore}\n${lineAfter}`;
+          return `${genLine(replacer.removed, nodeObj.key, nodeObj.valueBefore)}\n${genLine(replacer.added, nodeObj.key, nodeObj.valueAfter)}`;
 
         case 'nested':
-          return `${getReplacer(depth)}${nodeObj.key}: ${iter(nodeObj.children, depth + 1)}`;
+          return `${currentCommonIndent}${replacer.empty}${nodeObj.key}: ${iter(nodeObj.children, depth + 1)}`;
 
         case 'same':
-          return genLine(nodeObj, 'same', nodeObj.value);
-          // return `${getReplacer(depth)}${nodeObj.key}: ${stringify(nodeObj.value, depth + 1)}`;
+          return genLine(replacer.empty, nodeObj.key, nodeObj.value);
 
         default:
-          throw new Error('there is no such state in our collection');
+          throw new Error(`This node is in '${nodeObj.state}' state`);
       }
     });
 
     return [
       '{',
       ...lines,
-      `${getReplacer(depth - 1)}}`,
+      `${bracketIndent}}`,
     ].join('\n');
   };
 

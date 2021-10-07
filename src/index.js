@@ -1,6 +1,15 @@
 import _ from 'lodash';
-import getObjFromPath from './parsers.js';
+import { extname, isAbsolute, resolve } from 'path';
+import process from 'process';
+import fs from 'fs';
 import getFormattedCollection from './formatters/index.js';
+import parseContent from './parsers.js';
+
+const getResolvedPath = (path) => (isAbsolute(path) ? path : resolve(process.cwd(), path));
+
+const getFormat = (path) => extname(path);
+
+const getContent = (resolvedPath) => fs.readFileSync(resolvedPath, 'utf8');
 
 const generateDiffCollection = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
@@ -18,14 +27,14 @@ const generateDiffCollection = (obj1, obj2) => {
       return { state: 'removed', key, value: obj1[key] };
     }
 
-    // if keys are equal
-    if (obj1[key] === obj2[key]) {
-      return { state: 'same', key, value: obj1[key] };
-    }
-
     // if both are nested objects
     if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
       return { state: 'nested', key, children: generateDiffCollection(obj1[key], obj2[key]) };
+    }
+
+    // if keys are equal
+    if (obj1[key] === obj2[key]) {
+      return { state: 'same', key, value: obj1[key] };
     }
 
     // if keys are not equal
@@ -38,8 +47,13 @@ const generateDiffCollection = (obj1, obj2) => {
 };
 
 export default (path1, path2, format = 'stylish') => {
-  const obj1 = getObjFromPath(path1);
-  const obj2 = getObjFromPath(path2);
+  const content1 = getContent(getResolvedPath(path1));
+  const content2 = getContent(getResolvedPath(path2));
+  const format1 = getFormat(path1);
+  const format2 = getFormat(path2);
+
+  const obj1 = parseContent(content1, format1);
+  const obj2 = parseContent(content2, format2);
 
   const diffCollection = generateDiffCollection(obj1, obj2);
 
