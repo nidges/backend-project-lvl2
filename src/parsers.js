@@ -1,5 +1,4 @@
 import YAML from 'yaml';
-import _ from 'lodash';
 
 export default (content, format) => {
   if (format === 'json') {
