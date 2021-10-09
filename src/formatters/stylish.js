@@ -20,7 +20,7 @@ const stringify = (entity, depth) => {
   ].join('\n');
 };
 
-export default (collection) => {
+export default (diff) => {
   const iter = (node, depth) => {
     const genLine = (currentReplacer, key, value) => `${getCommonIndent(depth)}${currentReplacer}${key}: ${stringify(value, depth + 1)}`;
 
@@ -53,5 +53,5 @@ export default (collection) => {
     ].join('\n');
   };
 
-  return iter(collection, 1);
+  return iter(diff, 1);
 };

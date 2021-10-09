@@ -2,14 +2,14 @@ import formatStylish from './stylish.js';
 import formatPlain from './plain.js';
 import formatJson from './json.js';
 
-export default (format, collection) => {
+export default (format, diff) => {
   switch (format) {
     case 'plain':
-      return formatPlain(collection);
+      return formatPlain(diff);
     case 'json':
-      return formatJson(collection);
+      return formatJson(diff);
     case 'stylish':
-      return formatStylish(collection);
+      return formatStylish(diff);
     default:
       throw new Error(`Format '${format}' is incorrect, possible options: plain, json or stylish`);
   }

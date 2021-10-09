@@ -1,1 +1,1 @@
-export default (collection) => JSON.stringify(collection, null, ' ');
+export default (diff) => JSON.stringify(diff, null, ' ');

@@ -12,7 +12,7 @@ const getCorrectValue = (value) => {
   return value;
 };
 
-export default (collection) => {
+export default (diff) => {
   const iter = (node, path) => {
     const lines = node
       .filter(({ state }) => state !== 'same')
@@ -34,5 +34,5 @@ export default (collection) => {
     return lines.join('\n');
   };
 
-  return iter(collection, '');
+  return iter(diff, '');
 };
