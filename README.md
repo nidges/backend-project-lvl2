@@ -19,7 +19,7 @@ This package provides a Generator of Difference between two .yaml or .json files
 
 Program uses two required arguments - paths to files. Either relative or absolute.
 There are three output format types (-f, --format):
-  1. _stylish - default_:
+1.  _stylish - default_:
 ```json
     group1: {
       - baz: bas
@@ -31,12 +31,12 @@ There are three output format types (-f, --format):
       + nest: str
     }
 ```
-  3. _plain_:
+2. _plain_:
 ```json lines
     Property 'group1.baz' was updated. From 'bas' to 'bars'
     Property 'group1.nest' was updated. From [complex value] to 'str'
 ```
-  4. _json_:
+3. _json_:
 ```json
     [
       {
