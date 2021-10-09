@@ -8,7 +8,7 @@ import parseContent from './parsers.js';
 // const getResolvedPath = (path) => (isAbsolute(path) ? path : resolve(process.cwd(), path));
 const getResolvedPath = (path) => resolve(process.cwd(), path);
 
-const getFormat = (path) => extname(path);
+const getFormat = (path) => extname(path).slice(1);
 
 const getContent = (resolvedPath) => fs.readFileSync(resolvedPath, 'utf8');
 
