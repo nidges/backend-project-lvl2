@@ -31,7 +31,7 @@ export default (collection) => {
         }
       });
 
-    return [...lines].join('\n');
+    return lines.join('\n');
   };
 
   return iter(collection, '');
