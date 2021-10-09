@@ -1,11 +1,12 @@
 import _ from 'lodash';
-import { extname, isAbsolute, resolve } from 'path';
+import { extname, resolve } from 'path';
 import process from 'process';
 import fs from 'fs';
 import getFormattedCollection from './formatters/index.js';
 import parseContent from './parsers.js';
 
-const getResolvedPath = (path) => (isAbsolute(path) ? path : resolve(process.cwd(), path));
+// const getResolvedPath = (path) => (isAbsolute(path) ? path : resolve(process.cwd(), path));
+const getResolvedPath = (path) => resolve(process.cwd(), path);
 
 const getFormat = (path) => extname(path);
 

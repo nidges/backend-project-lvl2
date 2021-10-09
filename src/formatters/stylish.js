@@ -1,33 +1,28 @@
 import _ from 'lodash';
 
-const replacer = { added: '+ ', removed: '- ', empty: '  ' };
-const replacerCount = 2;
+const replacer = { added: '  + ', removed: '  - ', empty: '    ' };
+
+const getCommonIndent = (depth) => {
+  if (depth === 0) return '';
+  return replacer.empty.repeat(depth - 1);
+};
 
 const stringify = (entity, depth) => {
   if (!_.isPlainObject(entity)) {
     return entity;
   }
   const keys = Object.keys(entity);
-  const newKeys = keys.map((key) => {
-    if (_.isPlainObject(entity[key])) {
-      return `${replacer.empty.repeat(replacerCount * depth)}${key}: ${stringify(entity[key], depth + 1)}`;
-    }
-    return `${replacer.empty.repeat(replacerCount * depth)}${key}: ${entity[key]}`;
-  });
+  const newKeys = keys.map((key) => `${getCommonIndent(depth + 1)}${key}: ${stringify(entity[key], depth + 1)}`);
   return [
     '{',
     ...newKeys,
-    `${replacer.empty.repeat(depth * replacerCount - replacerCount)}}`,
+    `${getCommonIndent(depth)}}`,
   ].join('\n');
 };
 
 export default (collection) => {
   const iter = (node, depth) => {
-    const indentSize = depth * replacerCount;
-    const currentCommonIndent = replacer.empty.repeat(indentSize - 1);
-    const bracketIndent = replacer.empty.repeat(indentSize - replacerCount);
-
-    const genLine = (currentReplacer, key, value) => `${currentCommonIndent}${currentReplacer}${key}: ${stringify(value, depth + 1)}`;
+    const genLine = (currentReplacer, key, value) => `${getCommonIndent(depth)}${currentReplacer}${key}: ${stringify(value, depth + 1)}`;
 
     const lines = node.map((nodeObj) => {
       switch (nodeObj.state) {
@@ -41,7 +36,7 @@ export default (collection) => {
           return `${genLine(replacer.removed, nodeObj.key, nodeObj.valueBefore)}\n${genLine(replacer.added, nodeObj.key, nodeObj.valueAfter)}`;
 
         case 'nested':
-          return `${currentCommonIndent}${replacer.empty}${nodeObj.key}: ${iter(nodeObj.children, depth + 1)}`;
+          return `${getCommonIndent(depth + 1)}${nodeObj.key}: ${iter(nodeObj.children, depth + 1)}`;
 
         case 'same':
           return genLine(replacer.empty, nodeObj.key, nodeObj.value);
@@ -54,7 +49,7 @@ export default (collection) => {
     return [
       '{',
       ...lines,
-      `${bracketIndent}}`,
+      `${getCommonIndent(depth)}}`,
     ].join('\n');
   };
 

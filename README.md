@@ -1,22 +1,71 @@
 This package provides a Generator of Difference between two .yaml or .json files.
 
-Installation:
+**Installation:**
 1. Check if you have node.js installed (node --version). If not - install it with available package manager
 2. Clone this repo
 3. Install dependencies with 'make install' or 'npm ci'
-4. Use gendiff -h for help with options
+4. Run npm link
+5. Use gendiff -h for help with options
 
-Usage: gendiff [options] <filepath1> <filepath2>
-Options:\
-  -V, --version           output the version number\
-  -f, --format [type]  output format (default: "stylish")\
-  -h, --help               output usage information\
+**Usage:** gendiff [options] <filepath1> <filepath2>
+
+**Options:**
+
+| Option |Description  |
+| :---        |    :----:   |
+| -V, --version     | output the version number       |
+| -f, --format [type]   | output format (default: "stylish")        |
+| -h, --help   | output usage information        |
 
 Program uses two required arguments - paths to files. Either relative or absolute.
 There are three output format types (-f, --format):
-  1. stylish - default
-  2. plain
-  3. json
+  1. _stylish - default_:
+```json
+    group1: {
+      - baz: bas
+      + baz: bars
+        foo: bar
+      - nest: {
+            key: value
+        }
+      + nest: str
+    }
+```
+  3. _plain_:
+```json lines
+    Property 'group1.baz' was updated. From 'bas' to 'bars'
+    Property 'group1.nest' was updated. From [complex value] to 'str'
+```
+  4. _json_:
+```json
+    [
+      {
+        "state": "nested",
+        "key": "group1",
+        "children": [
+          {
+            "state": "changed",
+            "key": "baz",
+            "valueBefore": "bas",
+            "valueAfter": "bars"
+          },
+          {
+            "state": "same",
+            "key": "foo",
+            "value": "bar"
+          },
+          {
+            "state": "changed",
+            "key": "nest",
+            "valueBefore": {
+              "key": "value"
+            },
+            "valueAfter": "str"
+          }
+        ]
+      }
+    ]
+```
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/nidges/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/nidges/backend-project-lvl2/actions)

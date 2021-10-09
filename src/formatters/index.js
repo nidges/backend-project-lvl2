@@ -11,6 +11,6 @@ export default (format, collection) => {
     case 'stylish':
       return formatStylish(collection);
     default:
-      throw new Error('wrong output format!');
+      throw new Error(`Format '${format}' is incorrect, possible options: plain, json or stylish`);
   }
 };
